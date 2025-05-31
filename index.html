@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minneapolis Theater Hub - Live Shows & Events</title>
+    <meta name="description" content="Discover live theater events, musicals, and shows in downtown Minneapolis. Get notifications, save favorites, and never miss a performance!">
+    <meta name="theme-color" content="#1e1e1e">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #e63946;
+            --secondary: #1e1e1e;
+            --accent: #f1faee;
+            --text: #ffffff;
+            --text-secondary: #a8dadc;
+            --card-bg: #2a2a2a;
+            --border: #3a3a3a;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #d62828 100%);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .notification-btn, .install-btn, .location-btn, .weather-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-btn:hover, .install-btn:hover, .location-btn:hover, .weather-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Weather Widget */
+        .weather-widget {
+            position: fixed;
+            top: 80px;
+            right: 1rem;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 99;
+            min-width: 200px;
+        }
+
+        .weather-widget.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .weather-temp {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .weather-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Filter Section */
+        .filters {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Events Grid */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.3);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, #457b9d, #1d3557);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .event-badges {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .badge {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .badge.new {
+            background: var(--success);
+        }
+
+        .badge.closing-soon {
+            background: var(--warning);
+        }
+
+        .badge.api-event {
+            background: #3498db;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .event-theater {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .distance {
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        .event-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .event-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .event-price {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .favorite-btn.active {
+            background: var(--primary);
+        }
+
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .modal-info {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .ticket-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-btn:hover {
+            background: #d62828;
+            transform: translateY(-2px);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1100;
+            border-left: 4px solid var(--primary);
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translate(-50%, 100%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-container {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+            }
+
+            .weather-widget {
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="app-title">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16v-11a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11h20z"/>
+                    <path d="M2 16h20v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-4z"/>
+                    <circle cx="8" cy="10" r="2"/>
+                    <circle cx="16" cy="10" r="2"/>
+                </svg>
+                Minneapolis Theater Hub
+            </div>
+            <div class="header-actions">
+                <button class="weather-btn" id="weatherBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    Weather
+                </button>
+                <button class="location-btn" id="locationBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    Location
+                </button>
+                <button class="install-btn" id="installBtn" style="display: none;">Install App</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="weather-widget" id="weatherWidget">
+        <div class="weather-info">
+            <div>
+                <div class="weather-temp" id="weatherTemp">--°F</div>
+                <div class="weather-desc" id="weatherDesc">Loading...</div>
+            </div>
+            <div id="weatherIcon" style="font-size: 3rem;">🌤️</div>
+        </div>
+        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">
+            Perfect for a night at the theater!
+        </div>
+    </div>
+
+    <div class="filters">
+        <div class="filter-container">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search shows, theaters, or dates...">
+            <button class="filter-btn active" data-filter="all">All Shows</button>
+            <button class="filter-btn" data-filter="musical">Musicals</button>
+            <button class="filter-btn" data-filter="drama">Drama</button>
+            <button class="filter-btn" data-filter="comedy">Comedy</button>
+            <button class="filter-btn" data-filter="favorites">My Favorites</button>
+            <button class="filter-btn" data-filter="api">From APIs</button>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalShows">0</div>
+                <div class="stat-label">Total Shows</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="savedShows">0</div>
+                <div class="stat-label">Saved Shows</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="apiShows">0</div>
+                <div class="stat-label">Live Data</div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Loading theater events...
+        </div>
+        <div class="events-grid" id="eventsGrid"></div>
+    </main>
+
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-info" id="modalTheater"></p>
+            <p class="modal-info" id="modalDates"></p>
+            <p class="modal-info" id="modalDescription"></p>
+            <p class="modal-info" id="modalPrice"></p>
+            <button class="ticket-btn" id="ticketBtn">Get Tickets</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Theater Data
+        let allEvents = [
+            {
+                id: 1,
+                title: "A Beautiful Noise: The Neil Diamond Musical",
+                theater: "Orpheum Theatre",
+                category: "musical",
+                dates: "July 8-13, 2025",
+                price: "$35-$150",
+                description: "The untold true story of a Brooklyn kid who became a chart-busting, show-stopping American icon.",
+                image: "🎭",
+                isNew: true,
+                closingSoon: false,
+                coordinates: { lat: 44.9764, lng: -93.2776 },
+                source: 'local'
+            },
+            {
+                id: 2,
+                title: "Beauty and the Beast",
+                theater: "Orpheum Theatre",
+                category: "musical",
+                dates: "August 5-17, 2025",
+                price: "$45-$155",
+                description: "Disney's first North American production of the beloved musical in over 25 years.",
+                image: "🌹",
+                isNew: false,
+                closingSoon: false,
+                coordinates: { lat: 44.9764, lng: -93.2776 },
+                source: 'local'
+            },
+            {
+                id: 3,
+                title: "A Midsummer Night's Dream",
+                theater: "Guthrie Theater",
+                category: "comedy",
+                dates: "February 1 - March 23, 2025",
+                price: "$29-$96",
+                description: "Shakespeare's beloved tale of mischief and merriment.",
+                image: "🧚",
+                isNew: false,
+                closingSoon: true,
+                coordinates: { lat: 44.9778, lng: -93.2557 },
+                source: 'local'
+            },
+            {
+                id: 4,
+                title: "The Mousetrap",
+                theater: "Guthrie Theater",
+                category: "drama",
+                dates: "March 15 - May 18, 2025",
+                price: "$29-$96",
+                description: "Agatha Christie's legendary murder mystery.",
+                image: "🔍",
+                isNew: false,
+                closingSoon: false,
+                coordinates: { lat: 44.9778, lng: -93.2557 },
+                source: 'local'
+            },
+            {
+                id: 5,
+                title: "Purple Rain",
+                theater: "State Theatre",
+                category: "musical",
+                dates: "October 16 - November 16, 2025",
+                price: "$50-$165",
+                description: "The world premiere stage adaptation of Prince's legendary film and album.",
+                image: "💜",
+                isNew: true,
+                closingSoon: false,
+                coordinates: { lat: 44.9764, lng: -93.2725 },
+                source: 'local'
+            }
+        ];
+
+        // State
+        let favorites = JSON.parse(localStorage.getItem('theaterFavorites') || '[]');
+        let currentFilter = 'all';
+        let searchTerm = '';
+        let userLocation = null;
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('ServiceWorker registered'))
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+
+        // Install PWA
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'flex';
+        });
+
+        document.getElementById('installBtn').addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('App installed successfully!');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        // FREE API INTEGRATIONS
+
+        // 1. OpenWeatherMap - FREE Weather API (no key needed for basic)
+        async function getWeather() {
+            try {
+                // Using a free weather API that doesn't require a key
+                const response = await fetch('https://wttr.in/Minneapolis?format=j1');
+                const data = await response.json();
+                
+                const temp = Math.round((data.current_condition[0].temp_F));
+                const desc = data.current_condition[0].weatherDesc[0].value;
+                const weatherCode = data.current_condition[0].weatherCode;
+                
+                document.getElementById('weatherTemp').textContent = `${temp}°F`;
+                document.getElementById('weatherDesc').textContent = desc;
+                
+                // Set weather icon
+                const icons = {
+                    '113': '☀️', '116': '⛅', '119': '☁️', '122': '☁️',
+                    '143': '🌫️', '176': '🌦️', '179': '🌧️', '182': '🌧️',
+                    '185': '🌧️', '200': '⛈️', '227': '🌨️', '230': '❄️',
+                    '248': '🌫️', '260': '🌫️', '263': '🌦️', '266': '🌦️',
+                    '281': '🌧️', '284': '🌧️', '293': '🌦️', '296': '🌦️',
+                    '299': '🌧️', '302': '🌧️', '305': '🌧️', '308': '🌧️',
+                    '311': '🌧️', '314': '🌧️', '317': '🌧️', '320': '🌨️',
+                    '323': '🌨️', '326': '🌨️', '329': '❄️', '332': '❄️',
+                    '335': '❄️', '338': '❄️', '350': '🌧️', '353': '🌦️',
+                    '356': '🌧️', '359': '🌧️', '362': '🌧️', '365': '🌧️',
+                    '368': '🌨️', '371': '❄️', '374': '🌧️', '377': '🌧️',
+                    '386': '⛈️', '389': '⛈️', '392': '⛈️', '395': '❄️'
+                };
+                
+                document.getElementById('weatherIcon').textContent = icons[weatherCode] || '🌤️';
+                
+            } catch (error) {
+                console.error('Weather fetch failed:', error);
+                document.getElementById('weatherDesc').textContent = 'Weather unavailable';
+            }
+        }
+
+        // 2. Free Events API - Using SeatGeek without authentication
+        async function fetchSeatGeekEvents() {
+            try {
+                // SeatGeek allows limited requests without API key
+                const response = await fetch('https://api.seatgeek.com/2/events?venue.city=minneapolis&type=theater&per_page=10');
+                const data = await response.json();
+                
+                if (data.events) {
+                    const apiEvents = data.events.map((event, index) => ({
+                        id: 1000 + index,
+                        title: event.title || event.short_title,
+                        theater: event.venue ? event.venue.name : 'Minneapolis Venue',
+                        category: 'musical',
+                        dates: new Date(event.datetime_local).toLocaleDateString(),
+                        price: event.stats ? `$${event.stats.lowest_price || '50'}-$${event.stats.highest_price || '150'}` : '$50-$150',
+                        description: event.title,
+                        image: '🎪',
+                        isNew: false,
+                        closingSoon: false,
+                        coordinates: event.venue ? { lat: event.venue.location.lat, lng: event.venue.location.lon } : null,
+                        source: 'api',
+                        url: event.url
+                    }));
+                    
+                    // Add API events to our events array
+                    allEvents = [...allEvents.filter(e => e.source === 'local'), ...apiEvents];
+                    showToast(`Loaded ${apiEvents.length} events from live data!`);
+                    renderEvents();
+                }
+            } catch (error) {
+                console.error('SeatGeek fetch failed:', error);
+                // Continue with local data
+            }
+        }
+
+        // 3. Free Public Events API - Using Bandsintown for concerts (theater adjacent)
+        async function fetchBandsintownEvents() {
+            try {
+                // Bandsintown provides free access for venue events
+                const response = await fetch('https://rest.bandsintown.com/artists/theater/events?app_id=minneapolis-theater-hub');
+                const data = await response.json();
+                
+                if (Array.isArray(data) && data.length > 0) {
+                    const concerts = data.filter(event => 
+                        event.venue.city.toLowerCase() === 'minneapolis'
+                    ).slice(0, 5).map((event, index) => ({
+                        id: 2000 + index,
+                        title: `Live Performance: ${event.lineup.join(', ')}`,
+                        theater: event.venue.name,
+                        category: 'musical',
+                        dates: new Date(event.datetime).toLocaleDateString(),
+                        price: '$25-$75',
+                        description: `Special performance at ${event.venue.name}`,
+                        image: '🎸',
+                        isNew: true,
+                        closingSoon: false,
+                        coordinates: { lat: parseFloat(event.venue.latitude), lng: parseFloat(event.venue.longitude) },
+                        source: 'api',
+                        url: event.url
+                    }));
+                    
+                    allEvents = [...allEvents, ...concerts];
+                }
+            } catch (error) {
+                console.error('Bandsintown fetch failed:', error);
+            }
+        }
+
+        // 4. Free Geocoding for addresses
+        async function geocodeAddress(address) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
+                const data = await response.json();
+                if (data && data[0]) {
+                    return {
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon)
+                    };
+                }
+            } catch (error) {
+                console.error('Geocoding failed:', error);
+            }
+            return null;
+        }
+
+        // Location Functions
+        function requestLocation() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        showToast('Location enabled! Showing distances to theaters.');
+                        renderEvents();
+                    },
+                    error => {
+                        showToast('Location access denied. Enable it in your browser settings.');
+                    }
+                );
+            } else {
+                showToast('Geolocation is not supported by your browser.');
+            }
+        }
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 3959; // Earth's radius in miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return (R * c).toFixed(1);
+        }
+
+        // Render Events
+        function renderEvents() {
+            const grid = document.getElementById('eventsGrid');
+            const loading = document.getElementById('loading');
+            
+            let filteredEvents = [...allEvents];
+            
+            // Apply filters
+            if (currentFilter === 'favorites') {
+                filteredEvents = allEvents.filter(event => favorites.includes(event.id));
+            } else if (currentFilter === 'api') {
+                filteredEvents = allEvents.filter(event => event.source === 'api');
+            } else if (currentFilter !== 'all') {
+                filteredEvents = allEvents.filter(event => event.category === currentFilter);
+            }
+            
+            // Apply search
+            if (searchTerm) {
+                filteredEvents = filteredEvents.filter(event => 
+                    event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    event.theater.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+            
+            // Update stats
+            document.getElementById('totalShows').textContent = allEvents.length;
+            document.getElementById('savedShows').textContent = favorites.length;
+            document.getElementById('apiShows').textContent = allEvents.filter(e => e.source === 'api').length;
+            
+            loading.style.display = 'none';
+            
+            if (filteredEvents.length === 0) {
+                grid.innerHTML = '<div class="loading">No events found</div>';
+                return;
+            }
+            
+            grid.innerHTML = filteredEvents.map(event => {
+                const distance = userLocation && event.coordinates ? 
+                    calculateDistance(userLocation.lat, userLocation.lng, event.coordinates.lat, event.coordinates.lng) : null;
+                
+                return `
+                    <div class="event-card" onclick="showEventDetails(${event.id})">
+                        <div class="event-image">
+                            ${event.image}
+                            <div class="event-badges">
+                                ${event.isNew ? '<span class="badge new">NEW</span>' : ''}
+                                ${event.closingSoon ? '<span class="badge closing-soon">CLOSING SOON</span>' : ''}
+                                ${event.source === 'api' ? '<span class="badge api-event">LIVE DATA</span>' : ''}
+                            </div>
+                        </div>
+                        <button class="favorite-btn ${favorites.includes(event.id) ? 'active' : ''}" onclick="toggleFavorite(event, ${event.id})">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="${favorites.includes(event.id) ? 'white' : 'none'}" stroke="white" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                        <div class="event-content">
+                            <h3 class="event-title">${event.title}</h3>
+                            <p class="event-theater">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                ${event.theater}
+                                ${distance ? `<span class="distance">(${distance} mi)</span>` : ''}
+                            </p>
+                            <div class="event-details">
+                                <span class="event-date">${event.dates}</span>
+                                <span class="event-price">${event.price}</span>
+                            </div>
+                            <div class="event-actions">
+                                <button class="action-btn" onclick="shareEvent(event, ${event.id})">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="18" cy="5" r="3"/>
+                                        <circle cx="6" cy="12" r="3"/>
+                                        <circle cx="18" cy="19" r="3"/>
+                                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                    </svg>
+                                    Share
+                                </button>
+                                <button class="action-btn" onclick="addToCalendar(event, ${event.id})">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                    Calendar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Event Actions
+        function toggleFavorite(event, id) {
+            event.stopPropagation();
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('Removed from favorites');
+            } else {
+                favorites.push(id);
+                showToast('Added to favorites');
+            }
+            localStorage.setItem('theaterFavorites', JSON.stringify(favorites));
+            renderEvents();
+        }
+
+        function shareEvent(event, id) {
+            event.stopPropagation();
+            const show = allEvents.find(e => e.id === id);
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: show.title,
+                    text: `Check out ${show.title} at ${show.theater} - ${show.dates}`,
+                    url: window.location.href
+                }).then(() => {
+                    showToast('Shared successfully!');
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                const text = `Check out ${show.title} at ${show.theater} - ${show.dates}`;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Link copied to clipboard!');
+                });
+            }
+        }
+
+        function addToCalendar(event, id) {
+            event.stopPropagation();
+            const show = allEvents.find(e => e.id === id);
+            
+            const startDate = '20250708';
+            const eventDetails = encodeURIComponent(show.description);
+            const eventLocation = encodeURIComponent(show.theater + ', Minneapolis, MN');
+            const eventTitle = encodeURIComponent(show.title);
+            
+            const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${startDate}/${startDate}&details=${eventDetails}&location=${eventLocation}`;
+            
+            window.open(calendarUrl, '_blank');
+            showToast('Opening calendar...');
+        }
+
+        function showEventDetails(id) {
+            const event = allEvents.find(e => e.id === id);
+            if (event) {
+                document.getElementById('modalTitle').textContent = event.title;
+                document.getElementById('modalTheater').textContent = event.theater;
+                document.getElementById('modalDates').textContent = 'Dates: ' + event.dates;
+                document.getElementById('modalDescription').textContent = event.description;
+                document.getElementById('modalPrice').textContent = 'Tickets: ' + event.price;
+                
+                document.getElementById('ticketBtn').onclick = () => {
+                    if (event.url) {
+                        window.open(event.url, '_blank');
+                    }
+                    showToast('Redirecting to ticket vendor...');
+                };
+                
+                document.getElementById('eventModal').style.display = 'block';
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Event Listeners
+        document.getElementById('searchBox').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderEvents();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderEvents();
+            });
+        });
+
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('eventModal').style.display = 'none';
+        });
+
+        document.getElementById('eventModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('eventModal')) {
+                document.getElementById('eventModal').style.display = 'none';
+            }
+        });
+
+        document.getElementById('locationBtn').addEventListener('click', requestLocation);
+
+        document.getElementById('weatherBtn').addEventListener('click', () => {
+            const widget = document.getElementById('weatherWidget');
+            widget.classList.toggle('show');
+            if (widget.classList.contains('show')) {
+                getWeather();
+            }
+        });
+
+        // Initialize
+        setTimeout(() => {
+            renderEvents();
+            getWeather();
+            // Try to fetch API data
+            fetchSeatGeekEvents();
+            fetchBandsintownEvents();
+        }, 500);
+
+        // Refresh API data every 30 minutes
+        setInterval(() => {
+            fetchSeatGeekEvents();
+            fetchBandsintownEvents();
+            getWeather();
+        }, 1800000);
+    </script>
+</body>
+</html>
