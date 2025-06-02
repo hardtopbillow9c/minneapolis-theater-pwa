@@ -852,8 +852,18 @@
         async function fetchTicketmasterEvents() {
             const tmStatus = document.getElementById('tmStatus');
             tmStatus.classList.add('active');
+            ticketmasterEvents = []; // Ensure it's an empty array to start / on error
             try {
-                const response = await fetch(`${API_CONFIG.functionsUrl}?source=ticketmaster`);
+                if (!API_CONFIG.functionsUrl || typeof API_CONFIG.functionsUrl !== 'string' || !API_CONFIG.functionsUrl.startsWith('/')) {
+                    console.error("Invalid API_CONFIG.functionsUrl for Ticketmaster:", API_CONFIG.functionsUrl);
+                    showToast('⚠️ API configuration error (TM).');
+                    document.getElementById('tmCount').textContent = 'Config Error';
+                    tmStatus.classList.remove('active');
+                    return; 
+                }
+                const urlToFetch = `${API_CONFIG.functionsUrl}?source=ticketmaster`;
+                console.log("Fetching Ticketmaster from:", urlToFetch); 
+                const response = await fetch(urlToFetch);
                 if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
                 const data = await response.json();
                 if (data._embedded && data._embedded.events) {
@@ -869,19 +879,33 @@
                         rawDate: event.dates.start.dateTime || event.dates.start.localDate
                     }));
                     document.getElementById('tmCount').textContent = ticketmasterEvents.length;
-                } else { ticketmasterEvents = []; document.getElementById('tmCount').textContent = '0'; }
+                } else { 
+                    document.getElementById('tmCount').textContent = '0'; 
+                }
                 tmStatus.classList.remove('active');
             } catch (error) {
-                console.error('Ticketmaster API Error:', error); tmStatus.classList.remove('active');
-                showToast('⚠️ Ticketmaster API error'); document.getElementById('tmCount').textContent = 'Error';
+                console.error('Ticketmaster API Error:', error); 
+                showToast('⚠️ Ticketmaster API error'); 
+                document.getElementById('tmCount').textContent = 'Error';
+                tmStatus.classList.remove('active');
             }
         }
 
         async function fetchEventbriteEvents() {
             const ebStatus = document.getElementById('ebStatus');
             ebStatus.classList.add('active');
+            eventbriteEvents = []; // Ensure it's an empty array to start / on error
             try {
-                const response = await fetch(`${API_CONFIG.functionsUrl}?source=eventbrite`);
+                if (!API_CONFIG.functionsUrl || typeof API_CONFIG.functionsUrl !== 'string' || !API_CONFIG.functionsUrl.startsWith('/')) {
+                    console.error("Invalid API_CONFIG.functionsUrl for Eventbrite:", API_CONFIG.functionsUrl);
+                    showToast('⚠️ API configuration error (EB).');
+                    document.getElementById('ebCount').textContent = 'Config Error';
+                    ebStatus.classList.remove('active');
+                    return; 
+                }
+                const urlToFetch = `${API_CONFIG.functionsUrl}?source=eventbrite`;
+                console.log("Fetching Eventbrite from:", urlToFetch); 
+                const response = await fetch(urlToFetch);
                 if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
                 const data = await response.json();
                 if (data.events) {
@@ -896,11 +920,15 @@
                         rawDate: event.start.utc
                     }));
                     document.getElementById('ebCount').textContent = eventbriteEvents.length;
-                } else { eventbriteEvents = []; document.getElementById('ebCount').textContent = '0'; }
+                } else { 
+                    document.getElementById('ebCount').textContent = '0'; 
+                }
                 ebStatus.classList.remove('active');
             } catch (error) {
-                console.error('Eventbrite API Error:', error); ebStatus.classList.remove('active');
+                console.error('Eventbrite API Error:', error); 
                 showToast('⚠️ Eventbrite API error'); 
+                document.getElementById('ebCount').textContent = 'Error';
+                ebStatus.classList.remove('active');
             }
         }
         
@@ -941,7 +969,7 @@
             document.getElementById('eventsGrid').innerHTML = '';
             document.getElementById('liveDashboard').style.display = 'block';
 
-            const csvFileUrl = 'data/events.csv'; // Path to your CSV in the GitHub repo
+            const csvFileUrl = 'data/events.csv'; 
             const staticEventsFromCsv = await fetchAndProcessStaticEvents(csvFileUrl);
 
             let combinedEvents = [...staticEventsFromCsv]; 
