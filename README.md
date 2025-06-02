@@ -118,8 +118,8 @@ STEP 5: Wait for Netlify
 // =====================================================
 
 ✅ Environment Variables in Netlify:
-   - TICKETMASTER_KEY = kqGAg1coyGOhw7hKyEUkWf7fyoghxJkn
-   - EVENTBRITE_KEY = XSMMYXLBDHWRR2BTLLDI
+   - TICKETMASTER_KEY = [HIDDEN]
+   - EVENTBRITE_KEY = [HIDDEN]
 
 ✅ Files in GitHub:
    - index.html (updated with secure version)
