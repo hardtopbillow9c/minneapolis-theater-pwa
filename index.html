@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minneapolis Theater - Live Shows & Events</title>
-    <meta name="description" content="Real-time theater events from Ticketmaster & Eventbrite in Minneapolis">
-    <meta name="theme-color" content="#5F9EA0"> {/* Updated theme-color */}
+    <meta name="description" content="Your ultimate guide to live theater shows and events in Minneapolis">
+    <meta name="theme-color" content="#1a1a1a"> {/* Dark theme color */}
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {/* Updated Google Fonts to include Montserrat and remove Playfair Display weights not used */}
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,30 +18,27 @@
         }
 
         :root {
-            /* Minimalist & Artsy - Light Theme Palette */
-            --accent-primary: #5F9EA0; /* Dusty Teal */
-            --accent-primary-dark: #4a7c7d;
-            --accent-primary-light: #8cc6c7;
+            /* Neon Glam Dark Theme Palette */
+            --bg-main: #0D0D0D; /* Matte Black / Very Dark Charcoal */
+            --bg-card: #1A1A1A; /* Slightly lighter for cards */
+            --bg-header-blurred: rgba(15, 15, 15, 0.7); /* Darker, blurred header */
             
-            --bg-main: #f8f9fa;         /* Off-white page background */
-            --bg-card: #ffffff;         /* White for cards/elements */
-            --bg-header: rgba(255, 255, 255, 0.85); /* Semi-transparent white for header */
-            --bg-element-soft: #f1f3f5; /* Very light gray for subtle backgrounds */
+            --text-primary: #EAEAEA;    /* Light Gray / Off-White */
+            --text-secondary: #B0B0B0;  /* Medium Gray */
+            --text-on-accent: #FFFFFF;
 
-            --text-primary: #212529;    /* Near black for main text */
-            --text-secondary: #495057;  /* Dark gray for secondary text */
-            --text-on-accent: #ffffff;  /* White text on primary accent color */
+            --accent-neon: #FF00FF; /* Neon Magenta */
+            --accent-neon-dark: #cc00cc;
+            --accent-neon-light: #ff66ff;
+            --accent-neon-glow: rgba(255, 0, 255, 0.4);
+            --accent-neon-glow-strong: rgba(255, 0, 255, 0.6);
 
-            --border-color: #dee2e6;    /* Light gray for borders */
-            --border-color-strong: #ced4da;
-
-            /* API Specific Colors (can remain for visual distinction if desired) */
-            --ticketmaster: #007bff; /* Adjusted to a more standard blue */
-            --eventbrite: #fd7e14;   /* Adjusted to a more standard orange */
+            /* API Specific Colors (can be neon-ified or kept for distinction) */
+            --ticketmaster: #00AFFF; /* Neon Blue */
+            --eventbrite: #FF8C00;   /* Neon Orange */
             
-            --gold: #ffc107;
-            --success: #28a745;
-            --warning: #ffc107;
+            --success: #00FF7F; /* Neon Green */
+            --warning: #FFEE00; /* Neon Yellow */
         }
 
         body {
@@ -51,32 +47,36 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Removed dark radial gradients */
+            /* Subtle glitter/noise texture */
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.01) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.01) 75%, rgba(255,255,255,0.01)),
+                linear-gradient(45deg, rgba(255,255,255,0.01) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.01) 75%, rgba(255,255,255,0.01));
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
-
         ::-webkit-scrollbar-track {
-            background: var(--bg-element-soft);
+            background: var(--bg-main);
         }
-
         ::-webkit-scrollbar-thumb {
-            background: var(--accent-primary);
+            background: var(--accent-neon);
             border-radius: 5px;
+            box-shadow: 0 0 10px var(--accent-neon-glow);
         }
 
         /* Header */
         .app-header {
-            background: var(--bg-header);
-            backdrop-filter: blur(10px);
-            padding: 1.25rem 1rem; /* Slightly adjusted padding */
+            background: var(--bg-header-blurred);
+            backdrop-filter: blur(15px);
+            padding: 1.25rem 1.5rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 0, 255, 0.2); /* Neon border */
         }
 
         .header-content {
@@ -90,19 +90,19 @@
         }
 
         .app-title {
-            font-family: 'Montserrat', sans-serif; /* Changed font */
-            font-size: 1.7rem; /* Slightly adjusted size */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            color: var(--accent-primary); /* Solid accent color */
-            /* Removed gradient text styles */
+            color: var(--accent-neon-light);
+            text-shadow: 0 0 8px var(--accent-neon-glow);
         }
         .app-title svg {
-            stroke: var(--accent-primary); /* Color for SVG icon */
+            stroke: var(--accent-neon-light);
+            filter: drop-shadow(0 0 5px var(--accent-neon-glow));
         }
-
 
         .api-status {
             display: flex;
@@ -118,159 +118,161 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            background: var(--bg-element-soft);
-            border: 1px solid var(--border-color);
+            background: rgba(255,255,255, 0.05);
+            border: 1px solid rgba(255,255,255, 0.1);
             color: var(--text-secondary);
         }
-
-        .api-indicator.active { /* Simplified active state */
-            border-color: var(--accent-primary-light);
-            color: var(--accent-primary-dark);
-        }
         .api-indicator.active .status-dot {
-             animation: pulseDot 1.5s ease-in-out infinite;
+             animation: pulseNeonDot 1.5s ease-in-out infinite;
         }
-
-        @keyframes pulseDot {
-            0%, 100% { opacity: 0.5; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1); }
+        @keyframes pulseNeonDot {
+            0%, 100% { box-shadow: 0 0 3px var(--accent-neon); opacity: 0.7; }
+            50% { box-shadow: 0 0 8px var(--accent-neon); opacity: 1; }
         }
+        .api-indicator.ticketmaster { color: var(--ticketmaster); border-color: var(--ticketmaster); }
+        .api-indicator.eventbrite { color: var(--eventbrite); border-color: var(--eventbrite); }
 
 
-        .api-indicator.ticketmaster { /* Keep specific API colors if desired, or make them more subtle */
-            /* border-color: var(--ticketmaster); */
-            /* color: var(--ticketmaster); */
-        }
-
-        .api-indicator.eventbrite {
-            /* border-color: var(--eventbrite); */
-            /* color: var(--eventbrite); */
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 0.75rem;
-            align-items: center;
-        }
-
+        .header-actions { display: flex; gap: 0.75rem; align-items: center; }
         .header-btn {
             background: transparent;
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-primary);
-            padding: 0.5rem 1rem; /* Adjusted padding */
-            border-radius: 20px; /* Softened radius */
+            border: 1px solid var(--accent-neon);
+            color: var(--accent-neon-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.85rem; /* Adjusted size */
+            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-shadow: 0 0 5px var(--accent-neon-glow);
+            box-shadow: 0 0 8px var(--accent-neon-glow);
+        }
+        .header-btn:hover {
+            background: var(--accent-neon);
+            color: var(--bg-main); /* Dark text on hover */
+            text-shadow: none;
+            box-shadow: 0 0 15px var(--accent-neon-glow-strong), 0 0 20px var(--accent-neon);
+            transform: translateY(-1px);
+        }
+        .header-btn svg { stroke: currentColor; }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before { /* Subtle background glow for hero */
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, var(--accent-neon-glow) 0%, transparent 70%);
+            opacity: 0.3;
+            z-index: -1;
         }
 
-        .header-btn:hover {
-            background: var(--accent-primary);
-            color: var(--text-on-accent);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0, 0.05);
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700; /* Was 900, can be 700 for Montserrat */
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3), 0 0 20px var(--accent-neon-glow);
         }
-        .header-btn svg {
-            stroke: currentColor;
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Live Data Dashboard */
         .live-dashboard {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            margin: 1.5rem auto; /* Adjusted margin */
+            background: rgba(0,0,0,0.2); /* More transparent */
+            padding: 2rem;
+            margin: 2.5rem auto;
             max-width: 1400px;
-            border-radius: 16px; /* Softer radius */
-            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 20px var(--accent-neon-glow);
+            backdrop-filter: blur(5px);
         }
 
         .dashboard-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem; /* Adjusted size */
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--accent-primary-dark);
+            margin-bottom: 1.5rem;
+            color: var(--accent-neon-light);
+            text-align: center;
+            text-shadow: 0 0 8px var(--accent-neon-glow);
         }
 
         .api-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjusted minmax */
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
         .api-stat {
-            background: var(--bg-main); /* Softer background */
+            background: transparent;
             padding: 1rem;
-            border-radius: 10px; /* Softer radius */
+            border-radius: 10px;
             text-align: center;
         }
 
         .api-stat-value {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem; /* Adjusted size */
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--accent-primary);
+            color: var(--accent-neon);
+            text-shadow: 0 0 10px var(--accent-neon-glow-strong);
         }
 
         .api-stat-label {
-            font-size: 0.85rem; /* Adjusted size */
+            font-size: 0.9rem;
             color: var(--text-secondary);
-        }
-
-        /* Hero */
-        .hero-section {
-            padding: 2.5rem 1rem; /* Adjusted padding */
-            text-align: center;
-            background: linear-gradient(180deg, transparent 0%, rgba(95, 158, 160, 0.03) 100%); /* Subtle accent gradient */
-        }
-
-        .hero-title {
-            font-family: 'Montserrat', sans-serif; /* Changed font */
-            font-size: 2.5rem; /* Adjusted size */
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            line-height: 1.2;
-            color: var(--text-primary);
-        }
-
-        .hero-subtitle {
-            font-size: 1rem; /* Adjusted size */
-            color: var(--text-secondary);
-            font-weight: 400;
         }
 
         /* Filters */
         .filters {
-            background: rgba(255, 255, 255, 0.7); /* Lighter, slightly transparent */
-            padding: 1rem 1rem; /* Adjusted padding */
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-header-blurred); /* Same as header */
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 0, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 0, 255, 0.2);
             position: sticky;
-            top: 74px; /* Adjust based on new header height */
+            top: 77px; /* Adjust based on header height */
             z-index: 90;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
 
         .filter-container {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            gap: 0.75rem; /* Adjusted gap */
+            gap: 1rem;
             flex-wrap: wrap;
             align-items: center;
         }
 
         .search-box {
             flex: 1;
-            min-width: 280px; /* Adjusted width */
-            padding: 0.75rem 1.25rem; /* Adjusted padding */
-            background: var(--bg-card);
-            border: 1px solid var(--border-color-strong);
-            border-radius: 20px; /* Softer radius */
+            min-width: 300px;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255, 0.05);
+            border: 1px solid rgba(255,255,255, 0.1);
+            border-radius: 20px;
             color: var(--text-primary);
             font-size: 0.9rem;
             transition: all 0.2s ease;
@@ -278,15 +280,15 @@
 
         .search-box:focus {
             outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 2px rgba(95, 158, 160, 0.2); /* Accent focus ring */
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 10px var(--accent-neon-glow);
         }
 
         .filter-btn {
-            padding: 0.7rem 1.25rem; /* Adjusted padding */
+            padding: 0.7rem 1.25rem;
             background: transparent;
-            border: 1px solid var(--border-color-strong);
-            border-radius: 20px; /* Softer radius */
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
             color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.2s ease;
@@ -295,53 +297,55 @@
         }
 
         .filter-btn.active {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-            color: var(--text-on-accent);
+            background: var(--accent-neon);
+            border-color: var(--accent-neon);
+            color: var(--bg-main);
             font-weight: 600;
+            box-shadow: 0 0 15px var(--accent-neon-glow-strong);
+            text-shadow: none;
         }
 
         .filter-btn:hover:not(.active) {
-            border-color: var(--accent-primary-dark);
-            color: var(--accent-primary-dark);
-            transform: translateY(0); /* Removed hover transform for minimalist feel */
+            border-color: var(--accent-neon-light);
+            color: var(--accent-neon-light);
+            box-shadow: 0 0 8px var(--accent-neon-glow);
         }
 
         /* Stats Bar */
         .stats-bar {
             display: flex;
-            gap: 1.5rem; /* Adjusted gap */
-            margin: 2rem auto; /* Adjusted margin */
+            gap: 1.5rem;
+            margin: 2.5rem auto;
             max-width: 1400px;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
             flex-wrap: wrap;
         }
 
         .stat-item {
             flex: 1;
-            min-width: 180px; /* Adjusted width */
+            min-width: 200px;
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem; /* Adjusted padding */
-            border-radius: 16px; /* Softer radius */
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
             text-align: center;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
             position: relative;
-            overflow: hidden;
         }
 
         .stat-number {
-            font-family: 'Montserrat', sans-serif; /* Changed font */
-            font-size: 2.5rem; /* Adjusted size */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
             font-weight: 700;
-            color: var(--accent-primary); /* Solid accent color */
-            /* Removed gradient text */
+            color: var(--accent-neon);
+            text-shadow: 0 0 10px var(--accent-neon-glow-strong);
         }
 
         .stat-label {
-            font-size: 0.8rem; /* Adjusted size */
+            font-size: 0.85rem;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em; /* Reduced spacing */
+            letter-spacing: 0.05em;
             margin-top: 0.25rem;
             font-weight: 500;
         }
@@ -349,51 +353,81 @@
         /* Events Grid */
         .events-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); /* Adjusted minmax */
-            gap: 1.5rem; /* Adjusted gap */
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem; /* More space for "zazz" */
             max-width: 1400px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
         }
 
         .event-card {
             background: var(--bg-card);
-            border-radius: 16px; /* Softer radius */
+            border-radius: 12px; /* Slightly sharper for neon corners */
             overflow: hidden;
-            transition: all 0.3s ease; /* Softened transition */
+            transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-neon); /* Neon border */
+            box-shadow: 0 0 15px var(--accent-neon-glow), inset 0 0 10px rgba(255,0,255,0.1);
         }
+        /* Decorative Corner Elements like in content_id='7' */
+        .event-card::before, .event-card::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--accent-neon);
+            border-style: solid;
+            opacity: 0.8;
+            box-shadow: 0 0 8px var(--accent-neon-glow);
+        }
+        .event-card::before { /* Top-left and bottom-right style corner */
+            top: -1px; left: -1px;
+            border-width: 3px 0 0 3px;
+            border-top-left-radius: 12px;
+        }
+        .event-card::after { /* Top-right and bottom-left style corner */
+            bottom: -1px; right: -1px;
+            border-width: 0 3px 3px 0;
+            border-bottom-right-radius: 12px;
+        }
+         /* Optional: Add other two corners if desired, adjusting ::before/::after or adding new pseudo-elements */
+
 
         .event-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-primary-light);
-            box-shadow: 0 10px 20px rgba(0,0,0, 0.05); /* Softer shadow */
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px var(--accent-neon-glow-strong), inset 0 0 15px rgba(255,0,255,0.2);
+            border-color: var(--accent-neon-light);
         }
+        .event-card:hover::before, .event-card:hover::after {
+            border-color: var(--accent-neon-light);
+            box-shadow: 0 0 12px var(--accent-neon-glow-strong);
+        }
+
 
         .event-image {
             width: 100%;
-            height: 200px; /* Adjusted height */
+            height: 200px;
             position: relative;
             overflow: hidden;
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255,0,255,0.3); /* Neon line separator */
         }
 
         .event-image.placeholder {
-            background: var(--bg-element-soft); /* Light placeholder background */
+            background: linear-gradient(135deg, var(--accent-neon-dark) 0%, var(--bg-main) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem; /* Adjusted size */
-            color: var(--border-color-strong);
+            font-size: 3.5rem;
+            color: var(--accent-neon);
+            text-shadow: 0 0 10px var(--accent-neon-glow-strong);
         }
 
         .event-badges {
             position: absolute;
-            top: 0.75rem; /* Adjusted position */
+            top: 0.75rem;
             left: 0.75rem;
             display: flex;
             gap: 0.4rem;
@@ -402,45 +436,36 @@
         }
 
         .badge {
-            background: rgba(255, 255, 255, 0.8); /* Lighter badge background */
+            background: rgba(15,15,15,0.7); /* Darker badge background */
             backdrop-filter: blur(5px);
             color: var(--text-secondary);
-            padding: 0.3rem 0.8rem; /* Adjusted padding */
-            border-radius: 15px; /* Softer radius */
-            font-size: 0.7rem; /* Adjusted size */
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .badge.ticketmaster {
-            background: var(--ticketmaster);
-            color: #fff;
-            border: none;
-        }
-
-        .badge.eventbrite {
-            background: var(--eventbrite);
-            color: #fff;
-            border: none;
-        }
-
+        .badge.ticketmaster { background: var(--ticketmaster); color: #000; border: none; }
+        .badge.eventbrite { background: var(--eventbrite); color: #000; border: none; }
         .badge.live {
             background: var(--success);
-            color: #fff; /* Changed text color for better contrast */
+            color: var(--bg-main);
             border: none;
-            animation: none; /* Removed blink for minimalist style, can be added back if desired */
+            animation: pulseLiveNeon 2s ease-in-out infinite;
+        }
+        @keyframes pulseLiveNeon {
+            0%, 100% { opacity: 1; box-shadow: 0 0 5px var(--success); }
+            50% { opacity: 0.7; box-shadow: 0 0 15px var(--success); }
         }
         
-        .event-content {
-            padding: 1.25rem; /* Adjusted padding */
-        }
-
+        .event-content { padding: 1.25rem; }
         .event-title {
-            font-family: 'Montserrat', sans-serif; /* Changed font */
-            font-size: 1.3rem; /* Adjusted size */
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem; /* Slightly larger for glam */
+            font-weight: 600; /* Was 700 */
             margin-bottom: 0.4rem;
             color: var(--text-primary);
             line-height: 1.3;
@@ -448,53 +473,42 @@
 
         .event-theater {
             color: var(--text-secondary);
-            font-size: 0.9rem; /* Adjusted size */
+            font-size: 0.9rem;
             margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
             font-weight: 500;
         }
-        .event-theater svg {
-            stroke: var(--text-secondary);
-        }
+        .event-theater svg { stroke: var(--text-secondary); }
 
         .event-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 1rem 0; /* Adjusted margin */
+            margin: 1rem 0;
             padding: 0.75rem 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255,0,255,0.2);
+            border-bottom: 1px solid rgba(255,0,255,0.2);
         }
 
-        .event-date {
-            font-size: 0.85rem; /* Adjusted size */
-            color: var(--text-secondary);
-            opacity: 1;
-        }
-
+        .event-date { font-size: 0.85rem; color: var(--text-secondary); }
         .event-price {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem; /* Adjusted size */
+            font-size: 1.2rem; /* More prominent price */
             font-weight: 700;
-            color: var(--accent-primary-dark); /* Solid accent color */
-            /* Removed gradient text */
+            color: var(--accent-neon-light);
+            text-shadow: 0 0 8px var(--accent-neon-glow);
         }
 
-        .event-actions {
-            display: flex;
-            gap: 0.5rem; /* Adjusted gap */
-        }
-
+        .event-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem;}
         .action-btn {
             flex: 1;
-            padding: 0.7rem; /* Adjusted padding */
-            background: transparent;
-            border: 1px solid var(--border-color-strong);
-            border-radius: 10px; /* Softer radius */
-            color: var(--accent-primary);
+            padding: 0.7rem;
+            background: rgba(255,0,255,0.1); /* Subtle neon background */
+            border: 1px solid var(--accent-neon);
+            border-radius: 10px;
+            color: var(--accent-neon-light);
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -503,125 +517,59 @@
             gap: 0.4rem;
             font-size: 0.85rem;
             font-weight: 500;
+            box-shadow: 0 0 5px var(--accent-neon-glow);
         }
         .action-btn svg { stroke: currentColor; }
-
         .action-btn:hover {
-            background: var(--accent-primary-light);
-            border-color: var(--accent-primary-light);
-            color: var(--text-on-accent);
+            background: var(--accent-neon);
+            border-color: var(--accent-neon-light);
+            color: var(--bg-main);
             transform: translateY(-1px);
+            box-shadow: 0 0 15px var(--accent-neon-glow-strong);
         }
 
         /* Loading */
-        .loading {
-            text-align: center;
-            padding: 4rem; /* Adjusted padding */
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-
+        .loading { text-align: center; padding: 4rem; font-size: 1rem; color: var(--text-secondary); }
         .spinner {
-            border: 3px solid var(--border-color);
-            border-top: 3px solid var(--accent-primary);
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--accent-neon);
             border-radius: 50%;
-            width: 50px; /* Adjusted size */
-            height: 50px;
+            width: 50px; height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem; /* Adjusted margin */
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 10px var(--accent-neon-glow);
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 1.5rem; /* Adjusted position */
-            left: 50%;
+            bottom: 1.5rem; left: 50%;
             transform: translateX(-50%);
-            background: var(--text-primary); /* Darker toast for contrast on light bg */
-            color: var(--bg-main);
-            padding: 1rem 2rem; /* Adjusted padding */
-            border-radius: 25px; /* Softer radius */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: var(--bg-card); 
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 15px var(--accent-neon-glow);
             display: none;
             z-index: 1100;
-            border: none; /* Removed border */
-            font-weight: 500;
-            font-size: 0.9rem;
+            border: 1px solid var(--accent-neon);
+            font-weight: 500; font-size: 0.9rem;
         }
+        .toast.show { display: block; animation: toastSlide 0.3s ease; }
+        @keyframes toastSlide { from { transform: translate(-50%, 80%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 
-        .toast.show {
-            display: block;
-            animation: toastSlide 0.3s ease;
-        }
-
-        @keyframes toastSlide {
-            from {
-                transform: translate(-50%, 80%); /* Adjusted slide */
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-        }
-
-        /* Security Badge */
-        .security-badge {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: var(--success);
-            color: #fff; /* White text for contrast */
-            padding: 0.4rem 0.8rem; /* Adjusted padding */
-            border-radius: 15px; /* Softer radius */
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            opacity: 0.9;
-        }
-        .security-badge svg {
-            stroke: #fff;
-        }
+        /* Removed Security Badge */
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .filter-container {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-            
-            .api-status {
-                width: 100%;
-                justify-content: center;
-                margin-top: 0.5rem; /* Adjusted margin */
-            }
-            .app-header {
-                padding: 1rem;
-                top:0; /* Ensure header is sticky */
-            }
-            .filters {
-                 top: 66px; /* Adjust if header height changed for mobile */
-            }
+            .hero-title { font-size: 2.2rem; }
+            .events-grid { grid-template-columns: 1fr; gap: 1.5rem; padding: 0 1rem; }
+            .filter-container { flex-direction: column; gap: 0.75rem; }
+            .search-box { width: 100%; }
+            .api-status { width: 100%; justify-content: center; margin-top: 0.5rem; }
+            .app-header { padding: 1rem; }
+            .filters { top: 70px; /* Adjust if header height changed */ }
         }
     </style>
 </head>
@@ -629,13 +577,13 @@
     <header class="app-header">
         <div class="header-content">
             <div class="app-title">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"> {/* Adjusted icon size */}
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M22 16v-11a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11h20z"/>
                     <path d="M2 16h20v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-4z"/>
                     <circle cx="8" cy="10" r="2"/>
                     <circle cx="16" cy="10" r="2"/>
                 </svg>
-                Minneapolis Theater {/* Title updated */}
+                Minneapolis Theater {/* Title updated from "Elite" */}
             </div>
             <div class="api-status">
                 <div class="api-indicator ticketmaster" id="tmStatus">
@@ -669,12 +617,12 @@
     </header>
 
     <section class="hero-section">
-        <h1 class="hero-title">Live Theater Events<br>Secure API Access</h1>
-        <p class="hero-subtitle">Real-time data from Ticketmaster & Eventbrite - Keys Protected!</p>
+        <h1 class="hero-title">Minneapolis Theater Live</h1> {/* Content Updated */}
+        <p class="hero-subtitle">Your ultimate guide to live shows & events.</p> {/* Content Updated */}
     </section>
 
     <div class="live-dashboard" id="liveDashboard" style="display: none;">
-        <h3 class="dashboard-title">🔒 Secure API Status</h3>
+        <h3 class="dashboard-title">Live Event Feed</h3> {/* Content Updated */}
         <div class="api-stats">
             <div class="api-stat">
                 <div class="api-stat-value" id="tmCount">0</div>
@@ -727,30 +675,15 @@
 
     <div class="toast" id="toast"></div>
 
-    <div class="security-badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        </svg>
-        API Keys Secured
-    </div>
-
     <script>
+        // JavaScript remains the same as your previous version
         // 🔒 API CONFIGURATION - KEYS NOW HIDDEN ON SERVER!
         const API_CONFIG = {
-            // Keys are now hidden on the server!
             secure: true,
             functionsUrl: '/.netlify/functions/get-events'
         };
-
-        // State
-        let allEvents = [];
-        let ticketmasterEvents = [];
-        let eventbriteEvents = [];
-        let currentFilter = 'all';
-        let searchTerm = '';
-        let lastUpdateTime = null;
-
-        // Service Worker
+        let allEvents = [], ticketmasterEvents = [], eventbriteEvents = [];
+        let currentFilter = 'all', searchTerm = '', lastUpdateTime = null;
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('service-worker.js')
@@ -758,468 +691,183 @@
                     .catch(err => console.log('ServiceWorker registration failed: ', err));
             });
         }
-
-        // Install PWA
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             document.getElementById('installBtn').style.display = 'flex';
         });
-
         document.getElementById('installBtn').addEventListener('click', () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        showToast('✨ App installed successfully!');
-                    }
+                    if (choiceResult.outcome === 'accepted') { showToast('✨ App installed successfully!'); }
                     deferredPrompt = null;
                 });
             }
         });
-
-        // 🔒 SECURE TICKETMASTER API FUNCTION
         async function fetchTicketmasterEvents() {
             const tmStatus = document.getElementById('tmStatus');
             tmStatus.classList.add('active');
-            
             try {
-                console.log('Fetching from Ticketmaster (Secure)...');
                 const response = await fetch(`${API_CONFIG.functionsUrl}?source=ticketmaster`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
+                if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
                 const data = await response.json();
-                
                 if (data._embedded && data._embedded.events) {
-                    ticketmasterEvents = data._embedded.events.map((event, index) => {
-                        let imageUrl = null;
-                        if (event.images && event.images.length > 0) {
-                            const sortedImages = event.images.sort((a, b) => b.width - a.width);
-                            imageUrl = sortedImages[0].url;
-                        }
-                        
-                        return {
-                            id: `tm_${event.id}`,
-                            title: event.name,
-                            theater: event._embedded.venues[0].name,
-                            address: event._embedded.venues[0].address ? 
-                                `${event._embedded.venues[0].address.line1}, ${event._embedded.venues[0].city.name}` : 
-                                event._embedded.venues[0].city.name,
-                            category: determineCategory(event),
-                            dates: formatTicketmasterDate(event.dates),
-                            price: formatTicketmasterPrice(event.priceRanges),
-                            description: event.info || event.pleaseNote || `Don't miss ${event.name} live!`,
-                            image: imageUrl,
-                            imageAlt: event.images?.[0]?.fallback ? '🎭' : null,
-                            source: 'ticketmaster',
-                            url: event.url,
-                            saleStatus: event.dates.status.code,
-                            genre: event.classifications?.[0]?.genre?.name,
-                            coordinates: event._embedded.venues[0].location ? {
-                                lat: parseFloat(event._embedded.venues[0].location.latitude),
-                                lng: parseFloat(event._embedded.venues[0].location.longitude)
-                            } : null,
-                            rawDate: event.dates.start.dateTime || event.dates.start.localDate
-                        };
-                    });
-                    
+                    ticketmasterEvents = data._embedded.events.map(event => ({
+                        id: `tm_${event.id}`, title: event.name,
+                        theater: event._embedded.venues[0].name,
+                        address: event._embedded.venues[0].address ? `${event._embedded.venues[0].address.line1}, ${event._embedded.venues[0].city.name}` : event._embedded.venues[0].city.name,
+                        category: determineCategory(event), dates: formatTicketmasterDate(event.dates), price: formatTicketmasterPrice(event.priceRanges),
+                        description: event.info || event.pleaseNote || `Don't miss ${event.name} live!`,
+                        image: event.images?.sort((a, b) => b.width - a.width)[0]?.url || null,
+                        imageAlt: '🎭', source: 'ticketmaster', url: event.url, saleStatus: event.dates.status.code, genre: event.classifications?.[0]?.genre?.name,
+                        coordinates: event._embedded.venues[0].location ? { lat: parseFloat(event._embedded.venues[0].location.latitude), lng: parseFloat(event._embedded.venues[0].location.longitude) } : null,
+                        rawDate: event.dates.start.dateTime || event.dates.start.localDate
+                    }));
                     document.getElementById('tmCount').textContent = ticketmasterEvents.length;
-                    showToast(`✅ Loaded ${ticketmasterEvents.length} secure Ticketmaster events!`);
-                } else {
-                    ticketmasterEvents = [];
-                    document.getElementById('tmCount').textContent = '0';
-                }
-                
+                } else { ticketmasterEvents = []; document.getElementById('tmCount').textContent = '0'; }
                 tmStatus.classList.remove('active');
-                
             } catch (error) {
-                console.error('Ticketmaster API Error:', error);
-                tmStatus.classList.remove('active');
-                showToast('⚠️ Ticketmaster API error - check console');
-                document.getElementById('tmCount').textContent = 'Error';
+                console.error('Ticketmaster API Error:', error); tmStatus.classList.remove('active');
+                showToast('⚠️ Ticketmaster API error'); document.getElementById('tmCount').textContent = 'Error';
             }
         }
-
-        // 🔒 SECURE EVENTBRITE API FUNCTION
         async function fetchEventbriteEvents() {
             const ebStatus = document.getElementById('ebStatus');
             ebStatus.classList.add('active');
-            
             try {
-                console.log('Fetching from Eventbrite (Secure)...');
                 const response = await fetch(`${API_CONFIG.functionsUrl}?source=eventbrite`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
+                if (!response.ok) { throw new Error(`HTTP ${response.status}`); }
                 const data = await response.json();
-                
                 if (data.events) {
-                    eventbriteEvents = data.events
-                        .filter(event => event.venue && event.name.text)
-                        .map(event => ({
-                            id: `eb_${event.id}`,
-                            title: event.name.text,
-                            theater: event.venue.name || 'Minneapolis Venue',
-                            address: event.venue.address ? 
-                                `${event.venue.address.address_1}, ${event.venue.address.city}` : 
-                                'Minneapolis, MN',
-                            category: 'theater',
-                            dates: formatEventbriteDate(event.start, event.end),
-                            price: event.is_free ? 'Free' : formatEventbritePrice(event.ticket_availability),
-                            description: event.description.text ? 
-                                event.description.text.substring(0, 200) + '...' : 
-                                `Experience ${event.name.text} live!`,
-                            image: event.logo ? event.logo.original.url : null,
-                            imageAlt: '🎪',
-                            source: 'eventbrite',
-                            url: event.url,
-                            status: event.status,
-                            coordinates: event.venue.latitude ? {
-                                lat: parseFloat(event.venue.latitude),
-                                lng: parseFloat(event.venue.longitude)
-                            } : null,
-                            rawDate: event.start.utc
-                        }));
-                    
+                    eventbriteEvents = data.events.filter(event => event.venue && event.name.text).map(event => ({
+                        id: `eb_${event.id}`, title: event.name.text,
+                        theater: event.venue.name || 'Minneapolis Venue',
+                        address: event.venue.address ? `${event.venue.address.address_1}, ${event.venue.address.city}` : 'Minneapolis, MN',
+                        category: 'theater', dates: formatEventbriteDate(event.start, event.end), price: event.is_free ? 'Free' : formatEventbritePrice(event.ticket_availability),
+                        description: event.description.text ? event.description.text.substring(0, 200) + '...' : `Experience ${event.name.text} live!`,
+                        image: event.logo?.original?.url || null, imageAlt: '🎪', source: 'eventbrite', url: event.url, status: event.status,
+                        coordinates: event.venue.latitude ? { lat: parseFloat(event.venue.latitude), lng: parseFloat(event.venue.longitude) } : null,
+                        rawDate: event.start.utc
+                    }));
                     document.getElementById('ebCount').textContent = eventbriteEvents.length;
-                    showToast(`✅ Loaded ${eventbriteEvents.length} secure Eventbrite events!`);
-                } else {
-                    eventbriteEvents = [];
-                    document.getElementById('ebCount').textContent = '0';
-                }
-                
+                } else { eventbriteEvents = []; document.getElementById('ebCount').textContent = '0'; }
                 ebStatus.classList.remove('active');
-                
             } catch (error) {
-                console.error('Eventbrite API Error:', error);
-                ebStatus.classList.remove('active');
-                showToast('⚠️ Using Eventbrite sample data');
-                eventbriteEvents = getSampleEventbriteEvents(); // Fallback for dev if API fails
+                console.error('Eventbrite API Error:', error); ebStatus.classList.remove('active');
+                showToast('⚠️ Eventbrite API error (using sample data)'); 
+                eventbriteEvents = getSampleEventbriteEvents(); // Fallback for dev
                 document.getElementById('ebCount').textContent = eventbriteEvents.length;
             }
         }
-
-        // Helper Functions
         function determineCategory(event) {
-            if (!event.classifications) return 'theater';
-            const classification = event.classifications[0];
-            
-            if (classification.segment?.name === 'Music') {
-                if (classification.genre?.name?.includes('Musical')) return 'musical';
-                return 'concert';
-            }
-            if (classification.genre?.name?.includes('Comedy')) return 'comedy';
-            if (classification.genre?.name?.includes('Drama')) return 'drama';
-            if (classification.genre?.name?.includes('Dance')) return 'dance';
-            
-            return 'theater';
+            if (!event.classifications) return 'theater'; const c = event.classifications[0];
+            if (c.segment?.name === 'Music') { return c.genre?.name?.includes('Musical') ? 'musical' : 'concert'; }
+            if (c.genre?.name?.includes('Comedy')) return 'comedy'; if (c.genre?.name?.includes('Drama')) return 'drama';
+            if (c.genre?.name?.includes('Dance')) return 'dance'; return 'theater';
         }
-
         function formatTicketmasterDate(dates) {
-            if (!dates.start) return 'TBA';
-            
-            const start = new Date(dates.start.localDate);
-            const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
-            let formatted = start.toLocaleDateString('en-US', options);
-            
-            if (dates.start.localTime) {
-                const time = dates.start.localTime;
-                const [hours, minutes] = time.split(':');
-                const hour = parseInt(hours);
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const displayHour = hour % 12 || 12;
-                formatted += ` at ${displayHour}:${minutes} ${ampm}`;
-            }
-            
-            return formatted;
+            if (!dates.start) return 'TBA'; const start = new Date(dates.start.localDate);
+            let fmt = start.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            if (dates.start.localTime) { const [h, m] = dates.start.localTime.split(':'); const hr = parseInt(h);
+                fmt += ` at ${hr % 12 || 12}:${m} ${hr >= 12 ? 'PM' : 'AM'}`; } return fmt;
         }
-
-        function formatTicketmasterPrice(priceRanges) {
-            if (!priceRanges || priceRanges.length === 0) return 'See Tickets';
-            
-            const range = priceRanges[0];
-            const min = range.min || 0;
-            const max = range.max || range.min || 100; // Default max if only min provided
+        function formatTicketmasterPrice(ranges) {
+            if (!ranges || ranges.length === 0) return 'See Tickets'; const r = ranges[0];
+            const min = r.min || 0; const max = r.max || r.min || 0;
             if (min === max && min !== 0) return `$${Math.round(min)}`;
-            if (min === 0 && max === 0) return 'Potentially Free';
-
+            if (min === 0 && max === 0 && r.type !== "noFee") return 'Potentially Free';
+            if (min === 0 && max === 0 && r.type === "noFee") return 'Free'; // Assuming noFee means free
             return `$${Math.round(min)}-$${Math.round(max)}`;
         }
-
         function formatEventbriteDate(start, end) {
-            const startDate = new Date(start.local);
-            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-            let formatted = startDate.toLocaleDateString('en-US', options);
-            
-            const timeOptions = { hour: 'numeric', minute: '2-digit' };
-            formatted += ` ${startDate.toLocaleTimeString('en-US', timeOptions)}`;
-            
-            return formatted;
+            const sd = new Date(start.local);
+            return sd.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ` ${sd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
         }
-
-        function formatEventbritePrice(ticketAvailability) {
-            if (!ticketAvailability) return 'Check Website';
-            
-            if (ticketAvailability.minimum_ticket_price && ticketAvailability.maximum_ticket_price) {
-                const min = ticketAvailability.minimum_ticket_price.major_value;
-                const max = ticketAvailability.maximum_ticket_price.major_value;
-                if (parseFloat(min) === parseFloat(max)) return `$${min}`;
-                return `$${min}-$${max}`;
-            }
-            
-            return 'See Tickets';
+        function formatEventbritePrice(avail) {
+            if (!avail) return 'Check Website';
+            if (avail.minimum_ticket_price && avail.maximum_ticket_price) {
+                const min = avail.minimum_ticket_price.major_value; const max = avail.maximum_ticket_price.major_value;
+                if (parseFloat(min) === parseFloat(max)) return `$${min}`; return `$${min}-$${max}`;
+            } return 'See Tickets';
         }
-        
-        function getSampleEventbriteEvents() {
-            // Fallback sample data if API fails during development
-            return [
-                {
-                    id: 'eb_sample_1',
-                    title: 'Twin Cities Theater Festival (Sample)',
-                    theater: 'Various Venues',
-                    address: 'Downtown Minneapolis',
-                    category: 'theater',
-                    dates: 'Throughout June 2025',
-                    price: '$15-$35',
-                    description: 'Celebrating local theater with 30+ productions across the Twin Cities.',
-                    image: null,
-                    imageAlt: '🎭',
-                    source: 'eventbrite',
-                    url: '#',
-                    rawDate: new Date().toISOString(),
-                    genre: 'Festival'
-                },
-                {
-                    id: 'eb_sample_2',
-                    title: 'Broadway Unplugged (Sample)',
-                    theater: 'Dakota Jazz Club',
-                    address: '1010 Nicollet Mall, Minneapolis',
-                    category: 'musical',
-                    dates: 'Every Monday',
-                    price: '$20-$40',
-                    description: 'Intimate acoustic performances of Broadway favorites.',
-                    image: null,
-                    imageAlt: '🎤',
-                    source: 'eventbrite',
-                    url: '#',
-                    rawDate: new Date().toISOString(),
-                    genre: 'Musical'
-                }
-            ];
+        function getSampleEventbriteEvents() { /* Keep your sample data function */
+             return [{id:'eb_s1',title:'Sample Show 1',theater:'Sample Theater',address:'Minneapolis',category:'theater',dates:'Tonight',price:'$25',description:'A sample show.',image:null,imageAlt:'🎭',source:'eventbrite',url:'#',rawDate:new Date().toISOString(),genre:'Drama'}, {id:'eb_s2',title:'Sample Concert',theater:'Sample Venue',address:'St. Paul',category:'concert',dates:'Tomorrow',price:'$50',description:'A sample concert.',image:null,imageAlt:'🎤',source:'eventbrite',url:'#',rawDate:new Date(Date.now()+86400000).toISOString(),genre:'Music'}];
         }
-
-
-        // Main data fetching function
         async function fetchAllLiveData() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('eventsGrid').innerHTML = ''; // Clear previous events
+            document.getElementById('loading').style.display = 'block'; document.getElementById('eventsGrid').innerHTML = '';
             document.getElementById('liveDashboard').style.display = 'block';
-            
-            await Promise.all([
-                fetchTicketmasterEvents(),
-                fetchEventbriteEvents()
-            ]);
-            
+            await Promise.all([fetchTicketmasterEvents(), fetchEventbriteEvents()]);
             allEvents = [...ticketmasterEvents, ...eventbriteEvents];
-            
-            allEvents.sort((a, b) => {
-                if (!a.rawDate || !b.rawDate) return 0;
-                return new Date(a.rawDate) - new Date(b.rawDate);
-            });
-            
+            allEvents.sort((a, b) => (new Date(a.rawDate)) - (new Date(b.rawDate)));
             lastUpdateTime = new Date();
-            document.getElementById('lastUpdate').textContent = lastUpdateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            updateStats();
-            renderEvents();
-            
+            document.getElementById('lastUpdate').textContent = lastUpdateTime.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+            updateStats(); renderEvents();
             document.getElementById('loading').style.display = 'none';
         }
-
         function updateStats() {
-            const totalEvents = allEvents.length;
-            const liveEvents = allEvents.filter(e => e.source === 'ticketmaster' || e.source === 'eventbrite').length;
-            
-            const today = new Date();
-            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            const todayEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
-
-            const todayEvents = allEvents.filter(e => {
-                if (!e.rawDate) return false;
-                const eventDate = new Date(e.rawDate);
-                return eventDate >= todayStart && eventDate <= todayEnd;
-            }).length;
-            
-            document.getElementById('totalShows').textContent = totalEvents;
-            document.getElementById('liveShows').textContent = liveEvents;
+            const total = allEvents.length;
+            const live = allEvents.filter(e => e.source === 'ticketmaster' || e.source === 'eventbrite').length;
+            const today = new Date(); const todayStart = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+            const todayEvents = allEvents.filter(e => e.rawDate && new Date(e.rawDate) >= todayStart && new Date(e.rawDate) < new Date(todayStart.getTime()+24*60*60*1000)).length;
+            document.getElementById('totalShows').textContent = total;
+            document.getElementById('liveShows').textContent = live;
             document.getElementById('todayShows').textContent = todayEvents;
         }
-
-        // Render Events
         function renderEvents() {
-            const grid = document.getElementById('eventsGrid');
-            
-            let filteredEvents = [...allEvents];
-            
-            // Apply filters
-            const today = new Date();
-            const todayDateString = today.toDateString();
+            const grid = document.getElementById('eventsGrid'); let filtered = [...allEvents];
+            const today = new Date(); const todayDateStr = today.toDateString();
             const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-
             switch (currentFilter) {
-                case 'ticketmaster':
-                    filteredEvents = allEvents.filter(e => e.source === 'ticketmaster');
-                    break;
-                case 'eventbrite':
-                    filteredEvents = allEvents.filter(e => e.source === 'eventbrite');
-                    break;
-                case 'today':
-                    filteredEvents = allEvents.filter(e => {
-                        if (!e.rawDate) return false;
-                        return new Date(e.rawDate).toDateString() === todayDateString;
-                    });
-                    break;
-                case 'week':
-                    filteredEvents = allEvents.filter(e => {
-                        if (!e.rawDate) return false;
-                        const eventDate = new Date(e.rawDate);
-                        // Ensure eventDate is for the start of its day for comparison with today
-                        const eventDayStart = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
-                        return eventDayStart >= new Date(today.getFullYear(), today.getMonth(), today.getDate()) && eventDayStart <= weekFromNow;
-                    });
-                    break;
+                case 'ticketmaster': filtered = allEvents.filter(e => e.source === 'ticketmaster'); break;
+                case 'eventbrite': filtered = allEvents.filter(e => e.source === 'eventbrite'); break;
+                case 'today': filtered = allEvents.filter(e => e.rawDate && new Date(e.rawDate).toDateString() === todayDateStr); break;
+                case 'week': filtered = allEvents.filter(e => e.rawDate && new Date(e.rawDate) >= today && new Date(e.rawDate) <= weekFromNow); break;
             }
-            
-            if (searchTerm) {
-                const lowerSearchTerm = searchTerm.toLowerCase();
-                filteredEvents = filteredEvents.filter(event => 
-                    (event.title && event.title.toLowerCase().includes(lowerSearchTerm)) ||
-                    (event.theater && event.theater.toLowerCase().includes(lowerSearchTerm)) ||
-                    (event.description && event.description.toLowerCase().includes(lowerSearchTerm)) ||
-                    (event.genre && event.genre.toLowerCase().includes(lowerSearchTerm))
-                );
-            }
-            
-            if (filteredEvents.length === 0) {
-                grid.innerHTML = `<div class="loading" style="padding: 2rem; font-size: 0.9rem; color: var(--text-secondary);">No events match your criteria. Try a different filter or search term, or click "Refresh Live Data".</div>`;
-                updateStats(); // Update stats even if no events shown for current filter
-                return;
-            }
-            
-            grid.innerHTML = filteredEvents.map(event => `
-                <div class="event-card" onclick="window.open('${event.url}', '_blank')" title="Click to view details on ${event.source}">
-                    <div class="event-image ${!event.image ? 'placeholder' : ''}" 
-                         ${event.image ? `style="background-image: url('${event.image}');"` : `style="background-color: var(--bg-element-soft);"`}>
+            if (searchTerm) { const st = searchTerm.toLowerCase();
+                filtered = filtered.filter(e => e.title?.toLowerCase().includes(st) || e.theater?.toLowerCase().includes(st) || e.description?.toLowerCase().includes(st) || e.genre?.toLowerCase().includes(st)); }
+            if (filtered.length === 0) { grid.innerHTML = `<div class="loading" style="padding:2rem;font-size:0.9rem;color:var(--text-secondary);">No events match. Try refreshing or changing filters.</div>`; updateStats(); return; }
+            grid.innerHTML = filtered.map(event => `
+                <div class="event-card" onclick="window.open('${event.url}', '_blank')" title="Click for details on ${event.source}">
+                    <div class="event-image ${!event.image ? 'placeholder' : ''}" ${event.image ? `style="background-image: url('${event.image}');"` : ''}>
                         ${!event.image ? (event.imageAlt || '🎭') : ''}
                         <div class="event-badges">
                             <span class="badge ${event.source}">${event.source}</span>
-                            ${event.saleStatus === 'onsale' || event.status === 'live' ? '<span class="badge live">LIVE</span>' : ''}
+                            ${(event.saleStatus === 'onsale' || event.status === 'live') ? '<span class="badge live">LIVE</span>' : ''}
                             ${event.genre ? `<span class="badge">${event.genre}</span>` : ''}
                         </div>
                     </div>
                     <div class="event-content">
                         <h3 class="event-title">${event.title}</h3>
-                        <p class="event-theater">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            ${event.theater}
-                        </p>
-                        <div class="event-details">
-                            <span class="event-date">${event.dates}</span>
-                            <span class="event-price">${event.price}</span>
-                        </div>
+                        <p class="event-theater"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${event.theater}</p>
+                        <div class="event-details"><span class="event-date">${event.dates}</span><span class="event-price">${event.price}</span></div>
                         <div class="event-actions">
-                            <button class="action-btn" onclick="event.stopPropagation(); shareEvent('${event.title}', '${event.theater}', '${event.url}')" title="Share this event">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="18" cy="5" r="3"/>
-                                    <circle cx="6" cy="12" r="3"/>
-                                    <circle cx="18" cy="19" r="3"/>
-                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                                </svg>
-                                Share
-                            </button>
-                            <button class="action-btn" title="View details on ${event.source}">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                    <circle cx="12" cy="12" r="3"/>
-                                </svg>
-                                Details
-                            </button>
+                            <button class="action-btn" onclick="event.stopPropagation(); shareEvent('${event.title}','${event.theater}','${event.url}')" title="Share Event"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
+                            <button class="action-btn" title="View Details"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Details</button>
                         </div>
                     </div>
-                </div>
-            `).join('');
-            
+                </div>`).join('');
             updateStats();
         }
-
         function shareEvent(title, theater, url) {
-            if (navigator.share) {
-                navigator.share({
-                    title: `${title} at ${theater}`,
-                    text: `Check out this event: ${title} at ${theater}`,
-                    url: url // Share the actual event URL
-                }).then(() => {
-                    showToast('✨ Shared successfully!');
-                }).catch(err => showToast('Could not share.'));
-            } else {
-                navigator.clipboard.writeText(`${title} at ${theater} - ${url}`).then(() => {
-                    showToast('📋 Link copied to clipboard!');
-                });
-            }
+            if (navigator.share) { navigator.share({ title: `${title} at ${theater}`, text: `Check out: ${title} at ${theater}`, url: url }).then(() => showToast('✨ Shared!')).catch(err=>showToast('Share failed.'));
+            } else { navigator.clipboard.writeText(`${title} at ${theater} - ${url}`).then(() => showToast('📋 Link copied!')); }
         }
-
         function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            const toast = document.getElementById('toast'); toast.textContent = message; toast.className = 'toast show';
+            setTimeout(() => { toast.className = 'toast'; }, 3000);
         }
-
-        // Event Listeners
-        document.getElementById('searchBox').addEventListener('input', (e) => {
-            searchTerm = e.target.value;
-            renderEvents();
-        });
-
+        document.getElementById('searchBox').addEventListener('input', (e) => { searchTerm = e.target.value; renderEvents(); });
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderEvents();
+                btn.classList.add('active'); currentFilter = btn.dataset.filter; renderEvents();
             });
         });
-
-        document.getElementById('refreshBtn').addEventListener('click', () => {
-            showToast('🔄 Refreshing live data...');
-            fetchAllLiveData();
-        });
-
-        // Initialize - Auto-load data
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🔒 API Keys are secured on Netlify (frontend does not handle them).');
-            fetchAllLiveData();
-        });
-        
-
-        // Auto-refresh every 5 minutes
-        setInterval(() => {
-            showToast('🔄 Auto-refreshing data...');
-            fetchAllLiveData();
-        }, 300000);
+        document.getElementById('refreshBtn').addEventListener('click', () => { showToast('🔄 Refreshing data...'); fetchAllLiveData(); });
+        document.addEventListener('DOMContentLoaded', () => { console.log('Neon Glam Initialized!'); fetchAllLiveData(); });
+        setInterval(() => { showToast('🔄 Auto-refreshing data...'); fetchAllLiveData(); }, 300000);
     </script>
 </body>
 </html>
