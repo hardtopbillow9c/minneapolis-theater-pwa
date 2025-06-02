@@ -182,7 +182,7 @@
         .hero-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 3rem;
-            font-weight: 700; /* Was 900, can be 700 for Montserrat */
+            font-weight: 700; 
             margin-bottom: 1rem;
             line-height: 1.2;
             color: var(--text-primary);
@@ -199,7 +199,7 @@
 
         /* Live Data Dashboard */
         .live-dashboard {
-            background: rgba(0,0,0,0.2); /* More transparent */
+            background: rgba(0,0,0,0.2); 
             padding: 2rem;
             margin: 2.5rem auto;
             max-width: 1400px;
@@ -247,7 +247,7 @@
 
         /* Filters */
         .filters {
-            background: var(--bg-header-blurred); /* Same as header */
+            background: var(--bg-header-blurred); 
             padding: 1rem 1.5rem;
             border-top: 1px solid rgba(255, 0, 255, 0.2);
             border-bottom: 1px solid rgba(255, 0, 255, 0.2);
@@ -354,7 +354,7 @@
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 2rem; /* More space for "zazz" */
+            gap: 2rem; 
             max-width: 1400px;
             margin: 2.5rem auto;
             padding: 0 1.5rem;
@@ -362,15 +362,14 @@
 
         .event-card {
             background: var(--bg-card);
-            border-radius: 12px; /* Slightly sharper for neon corners */
+            border-radius: 12px; 
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            border: 1px solid var(--accent-neon); /* Neon border */
+            border: 1px solid var(--accent-neon); 
             box-shadow: 0 0 15px var(--accent-neon-glow), inset 0 0 10px rgba(255,0,255,0.1);
         }
-        /* Decorative Corner Elements like in content_id='7' */
         .event-card::before, .event-card::after {
             content: '';
             position: absolute;
@@ -381,18 +380,16 @@
             opacity: 0.8;
             box-shadow: 0 0 8px var(--accent-neon-glow);
         }
-        .event-card::before { /* Top-left and bottom-right style corner */
+        .event-card::before { 
             top: -1px; left: -1px;
             border-width: 3px 0 0 3px;
             border-top-left-radius: 12px;
         }
-        .event-card::after { /* Top-right and bottom-left style corner */
+        .event-card::after { 
             bottom: -1px; right: -1px;
             border-width: 0 3px 3px 0;
             border-bottom-right-radius: 12px;
         }
-         /* Optional: Add other two corners if desired, adjusting ::before/::after or adding new pseudo-elements */
-
 
         .event-card:hover {
             transform: translateY(-8px) scale(1.02);
@@ -404,7 +401,6 @@
             box-shadow: 0 0 12px var(--accent-neon-glow-strong);
         }
 
-
         .event-image {
             width: 100%;
             height: 200px;
@@ -412,7 +408,7 @@
             overflow: hidden;
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid rgba(255,0,255,0.3); /* Neon line separator */
+            border-bottom: 1px solid rgba(255,0,255,0.3); 
         }
 
         .event-image.placeholder {
@@ -436,7 +432,7 @@
         }
 
         .badge {
-            background: rgba(15,15,15,0.7); /* Darker badge background */
+            background: rgba(15,15,15,0.7); 
             backdrop-filter: blur(5px);
             color: var(--text-secondary);
             padding: 0.3rem 0.8rem;
@@ -450,6 +446,7 @@
 
         .badge.ticketmaster { background: var(--ticketmaster); color: #000; border: none; }
         .badge.eventbrite { background: var(--eventbrite); color: #000; border: none; }
+        .badge.local_listing { background: var(--accent-neon-light); color: var(--bg-main); border: none; }
         .badge.live {
             background: var(--success);
             color: var(--bg-main);
@@ -464,8 +461,8 @@
         .event-content { padding: 1.25rem; }
         .event-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem; /* Slightly larger for glam */
-            font-weight: 600; /* Was 700 */
+            font-size: 1.4rem; 
+            font-weight: 600; 
             margin-bottom: 0.4rem;
             color: var(--text-primary);
             line-height: 1.3;
@@ -495,7 +492,7 @@
         .event-date { font-size: 0.85rem; color: var(--text-secondary); }
         .event-price {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem; /* More prominent price */
+            font-size: 1.2rem; 
             font-weight: 700;
             color: var(--accent-neon-light);
             text-shadow: 0 0 8px var(--accent-neon-glow);
@@ -505,7 +502,7 @@
         .action-btn {
             flex: 1;
             padding: 0.7rem;
-            background: rgba(255,0,255,0.1); /* Subtle neon background */
+            background: rgba(255,0,255,0.1); 
             border: 1px solid var(--accent-neon);
             border-radius: 10px;
             color: var(--accent-neon-light);
@@ -559,8 +556,6 @@
         .toast.show { display: block; animation: toastSlide 0.3s ease; }
         @keyframes toastSlide { from { transform: translate(-50%, 80%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
 
-        /* Removed Security Badge */
-
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title { font-size: 2.2rem; }
@@ -583,7 +578,7 @@
                     <circle cx="8" cy="10" r="2"/>
                     <circle cx="16" cy="10" r="2"/>
                 </svg>
-                Minneapolis Theater {/* Title updated from "Elite" */}
+                Minneapolis Theater
             </div>
             <div class="api-status">
                 <div class="api-indicator ticketmaster" id="tmStatus">
@@ -617,12 +612,12 @@
     </header>
 
     <section class="hero-section">
-        <h1 class="hero-title">Minneapolis Theater Live</h1> {/* Content Updated */}
-        <p class="hero-subtitle">Your ultimate guide to live shows & events.</p> {/* Content Updated */}
+        <h1 class="hero-title">Minneapolis Theater Live</h1>
+        <p class="hero-subtitle">Your ultimate guide to live shows & events.</p>
     </section>
 
     <div class="live-dashboard" id="liveDashboard" style="display: none;">
-        <h3 class="dashboard-title">Live Event Feed</h3> {/* Content Updated */}
+        <h3 class="dashboard-title">Live Event Feed</h3>
         <div class="api-stats">
             <div class="api-stat">
                 <div class="api-stat-value" id="tmCount">0</div>
@@ -641,10 +636,11 @@
 
     <div class="filters">
         <div class="filter-container">
-            <input type="text" class="search-box" id="searchBox" placeholder="Search live events...">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search events, venues, artists...">
             <button class="filter-btn active" data-filter="all">All Events</button>
             <button class="filter-btn" data-filter="ticketmaster">Ticketmaster</button>
             <button class="filter-btn" data-filter="eventbrite">Eventbrite</button>
+            <button class="filter-btn" data-filter="local_listing">Local Listings</button>
             <button class="filter-btn" data-filter="today">Today</button>
             <button class="filter-btn" data-filter="week">This Week</button>
         </div>
@@ -658,7 +654,7 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="liveShows">0</div>
-                <div class="stat-label">Live from APIs</div>
+                <div class="stat-label">Via API</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="todayShows">0</div>
@@ -668,7 +664,7 @@
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            Loading secure API events...
+            Summoning the Events...
         </div>
         <div class="events-grid" id="eventsGrid"></div>
     </main>
@@ -676,14 +672,158 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // JavaScript remains the same as your previous version
-        // 🔒 API CONFIGURATION - KEYS NOW HIDDEN ON SERVER!
+        // NOTE: The 'staticEventsData' array is intentionally empty here.
+        // It will be populated by the fetchAndProcessStaticEvents function.
+        const staticEventsData = []; 
+
         const API_CONFIG = {
             secure: true,
-            functionsUrl: '/.netlify/functions/get-events'
+            functionsUrl: '/.netlify/functions/get-events' 
         };
-        let allEvents = [], ticketmasterEvents = [], eventbriteEvents = [];
-        let currentFilter = 'all', searchTerm = '', lastUpdateTime = null;
+
+        let allEvents = []; 
+        let ticketmasterEvents = [];
+        let eventbriteEvents = [];
+        let currentFilter = 'all';
+        let searchTerm = '';
+        let lastUpdateTime = null;
+
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split(/\r?\n/); 
+            if (lines.length < 2) return []; 
+
+            const headers = lines[0].split(',').map(header => header.trim());
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim() === '') continue; 
+                const values = lines[i].split(',').map(value => value.trim());
+                
+                if (values.length === headers.length) {
+                    const entry = {};
+                    headers.forEach((header, index) => {
+                        entry[header] = values[index];
+                    });
+                    data.push(entry);
+                } else {
+                    console.warn(`Skipping CSV line ${i+1} due to mismatched columns: ${lines[i]}`);
+                }
+            }
+            return data;
+        }
+
+        async function fetchAndProcessStaticEvents(csvUrl) {
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) {
+                    console.error(`Error fetching CSV: ${response.status} ${response.statusText} for URL: ${csvUrl}`);
+                    showToast(`⚠️ Failed to load local event list from CSV.`);
+                    return []; 
+                }
+                const csvText = await response.text();
+                const parsedCsvData = parseCSV(csvText);
+
+                return parsedCsvData.map((row, index) => {
+                    const eventNumber = row["No."] || row["No"] || (index + 1); 
+                    const eventName = row["Event Name"] || 'Untitled Static Event';
+                    const eventDates = row["Date(s)"] || 'Date TBD';
+                    const eventTimes = row["Time(s)"] || 'Varies';
+                    const venueName = row["Venue Name"] || 'Venue TBD';
+                    const venueAddress = row["Venue Address/Area"] || 'Address TBD';
+                    const category = row["Category"] || 'General';
+                    const notes = row["Notes"] || '';
+
+                    return {
+                        id: `static_${eventNumber}`,
+                        title: eventName,
+                        dates: eventDates, 
+                        times: eventTimes, 
+                        theater: venueName,
+                        address: venueAddress,
+                        category: category,
+                        description: notes, 
+                        source: 'local_listing',
+                        rawDate: parseCsvDateToIso(eventDates, eventTimes), 
+                        genre: category, 
+                        price: 'Varies', 
+                        url: '#', 
+                        image: null,
+                        imageAlt: '🎭',
+                        saleStatus: 'onsale' 
+                    };
+                });
+            } catch (error) {
+                console.error('Error fetching or processing static events CSV:', error);
+                showToast('⚠️ Error loading local event list.');
+                return [];
+            }
+        }
+
+        function parseCsvDateToIso(dateStr, timeStr = "Varies") {
+            if (!dateStr) return null;
+            const currentYear = new Date().getFullYear(); 
+            let year = currentYear;
+            let monthStr, dayStr;
+
+            const monthMap = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+
+            const yearMatch = dateStr.match(/\b(\d{4})\b/);
+            if (yearMatch) {
+                year = parseInt(yearMatch[1]);
+                dateStr = dateStr.replace(yearMatch[1], '').trim(); 
+            }
+
+            let rangeMatch = dateStr.match(/(\w+)\s*(\d+)\s*(?:-\s*(?:\w+\s*)?(\d+))?/i);
+            if (rangeMatch) {
+                monthStr = rangeMatch[1].toLowerCase().substring(0, 3);
+                dayStr = rangeMatch[2];
+            } else {
+                let singleDateMatch = dateStr.match(/(\w+)\s*(\d+)/i);
+                if (singleDateMatch) {
+                    monthStr = singleDateMatch[1].toLowerCase().substring(0, 3);
+                    dayStr = singleDateMatch[2];
+                } else {
+                    let monthOnlyMatch = dateStr.match(/(\w+)/i);
+                    if (monthOnlyMatch) {
+                        monthStr = monthOnlyMatch[1].toLowerCase().substring(0, 3);
+                        dayStr = "1"; 
+                    } else {
+                        console.warn("Could not parse date string for rawDate:", dateStr);
+                        return null;
+                    }
+                }
+            }
+            
+            const month = monthMap[monthStr];
+            const day = parseInt(dayStr);
+
+            if (month === undefined || isNaN(day)) {
+                console.warn("Could not parse month/day from:", dateStr);
+                return null;
+            }
+
+            let hour = 12, minute = 0; 
+            if (timeStr && timeStr.toLowerCase() !== "varies") {
+                const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+                if (timeMatch) {
+                    hour = parseInt(timeMatch[1]);
+                    minute = parseInt(timeMatch[2]);
+                    if (timeMatch[3] && timeMatch[3].toLowerCase() === 'pm' && hour < 12) {
+                        hour += 12;
+                    }
+                    if (timeMatch[3] && timeMatch[3].toLowerCase() === 'am' && hour === 12) { 
+                        hour = 0;
+                    }
+                }
+            }
+            try {
+                return new Date(year, month, day, hour, minute).toISOString();
+            } catch (e) {
+                console.error("Error creating date object:", year, month, day, e);
+                return null;
+            }
+        }
+        
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('service-worker.js')
@@ -691,12 +831,14 @@
                     .catch(err => console.log('ServiceWorker registration failed: ', err));
             });
         }
+
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             document.getElementById('installBtn').style.display = 'flex';
         });
+
         document.getElementById('installBtn').addEventListener('click', () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
@@ -706,6 +848,7 @@
                 });
             }
         });
+
         async function fetchTicketmasterEvents() {
             const tmStatus = document.getElementById('tmStatus');
             tmStatus.classList.add('active');
@@ -733,6 +876,7 @@
                 showToast('⚠️ Ticketmaster API error'); document.getElementById('tmCount').textContent = 'Error';
             }
         }
+
         async function fetchEventbriteEvents() {
             const ebStatus = document.getElementById('ebStatus');
             ebStatus.classList.add('active');
@@ -756,117 +900,189 @@
                 ebStatus.classList.remove('active');
             } catch (error) {
                 console.error('Eventbrite API Error:', error); ebStatus.classList.remove('active');
-                showToast('⚠️ Eventbrite API error (using sample data)'); 
-                eventbriteEvents = getSampleEventbriteEvents(); // Fallback for dev
-                document.getElementById('ebCount').textContent = eventbriteEvents.length;
+                showToast('⚠️ Eventbrite API error'); 
             }
         }
-        function determineCategory(event) {
+        
+        function determineCategory(event) { 
             if (!event.classifications) return 'theater'; const c = event.classifications[0];
             if (c.segment?.name === 'Music') { return c.genre?.name?.includes('Musical') ? 'musical' : 'concert'; }
             if (c.genre?.name?.includes('Comedy')) return 'comedy'; if (c.genre?.name?.includes('Drama')) return 'drama';
             if (c.genre?.name?.includes('Dance')) return 'dance'; return 'theater';
         }
-        function formatTicketmasterDate(dates) {
+        function formatTicketmasterDate(dates) { 
             if (!dates.start) return 'TBA'; const start = new Date(dates.start.localDate);
             let fmt = start.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
             if (dates.start.localTime) { const [h, m] = dates.start.localTime.split(':'); const hr = parseInt(h);
                 fmt += ` at ${hr % 12 || 12}:${m} ${hr >= 12 ? 'PM' : 'AM'}`; } return fmt;
         }
-        function formatTicketmasterPrice(ranges) {
+        function formatTicketmasterPrice(ranges) { 
             if (!ranges || ranges.length === 0) return 'See Tickets'; const r = ranges[0];
             const min = r.min || 0; const max = r.max || r.min || 0;
             if (min === max && min !== 0) return `$${Math.round(min)}`;
             if (min === 0 && max === 0 && r.type !== "noFee") return 'Potentially Free';
-            if (min === 0 && max === 0 && r.type === "noFee") return 'Free'; // Assuming noFee means free
+            if (min === 0 && max === 0 && r.type === "noFee") return 'Free';
             return `$${Math.round(min)}-$${Math.round(max)}`;
         }
-        function formatEventbriteDate(start, end) {
+        function formatEventbriteDate(start, end) { 
             const sd = new Date(start.local);
             return sd.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ` ${sd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
         }
-        function formatEventbritePrice(avail) {
+        function formatEventbritePrice(avail) { 
             if (!avail) return 'Check Website';
             if (avail.minimum_ticket_price && avail.maximum_ticket_price) {
                 const min = avail.minimum_ticket_price.major_value; const max = avail.maximum_ticket_price.major_value;
                 if (parseFloat(min) === parseFloat(max)) return `$${min}`; return `$${min}-$${max}`;
             } return 'See Tickets';
         }
-        function getSampleEventbriteEvents() { /* Keep your sample data function */
-             return [{id:'eb_s1',title:'Sample Show 1',theater:'Sample Theater',address:'Minneapolis',category:'theater',dates:'Tonight',price:'$25',description:'A sample show.',image:null,imageAlt:'🎭',source:'eventbrite',url:'#',rawDate:new Date().toISOString(),genre:'Drama'}, {id:'eb_s2',title:'Sample Concert',theater:'Sample Venue',address:'St. Paul',category:'concert',dates:'Tomorrow',price:'$50',description:'A sample concert.',image:null,imageAlt:'🎤',source:'eventbrite',url:'#',rawDate:new Date(Date.now()+86400000).toISOString(),genre:'Music'}];
-        }
+        
         async function fetchAllLiveData() {
-            document.getElementById('loading').style.display = 'block'; document.getElementById('eventsGrid').innerHTML = '';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('eventsGrid').innerHTML = '';
             document.getElementById('liveDashboard').style.display = 'block';
-            await Promise.all([fetchTicketmasterEvents(), fetchEventbriteEvents()]);
-            allEvents = [...ticketmasterEvents, ...eventbriteEvents];
-            allEvents.sort((a, b) => (new Date(a.rawDate)) - (new Date(b.rawDate)));
+
+            const csvFileUrl = 'data/events.csv'; // Path to your CSV in the GitHub repo
+            const staticEventsFromCsv = await fetchAndProcessStaticEvents(csvFileUrl);
+
+            let combinedEvents = [...staticEventsFromCsv]; 
+            ticketmasterEvents = []; 
+            eventbriteEvents = [];
+
+            await Promise.all([
+                fetchTicketmasterEvents(), 
+                fetchEventbriteEvents()   
+            ]);
+
+            combinedEvents.push(...ticketmasterEvents);
+            combinedEvents.push(...eventbriteEvents);
+            
+            combinedEvents.sort((a, b) => {
+                if (!a.rawDate || !b.rawDate) return !a.rawDate ? 1 : -1;
+                try {
+                    const dateA = new Date(a.rawDate);
+                    const dateB = new Date(b.rawDate);
+                    if (isNaN(dateA.getTime())) return 1; 
+                    if (isNaN(dateB.getTime())) return -1;
+                    return dateA - dateB;
+                } catch (e) { return 0; }
+            });
+            
+            const uniqueEvents = [];
+            const seenSignatures = new Set();
+            for (const event of combinedEvents) {
+                const title = event.title?.toLowerCase() || '';
+                const datePart = event.rawDate ? String(event.rawDate).substring(0,10) : (event.dates?.substring(0,10) || 'nodate');
+                const theater = event.theater?.toLowerCase() || '';
+                const signature = `${title}|${datePart}|${theater}`;
+                if (!seenSignatures.has(signature)) {
+                    uniqueEvents.push(event);
+                    seenSignatures.add(signature);
+                }
+            }
+            allEvents = uniqueEvents; 
+            
             lastUpdateTime = new Date();
             document.getElementById('lastUpdate').textContent = lastUpdateTime.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-            updateStats(); renderEvents();
+            
+            updateStats(); 
+            renderEvents(); 
+            
             document.getElementById('loading').style.display = 'none';
         }
-        function updateStats() {
+
+        function updateStats() { 
             const total = allEvents.length;
             const live = allEvents.filter(e => e.source === 'ticketmaster' || e.source === 'eventbrite').length;
-            const today = new Date(); const todayStart = new Date(today.getFullYear(),today.getMonth(),today.getDate());
-            const todayEvents = allEvents.filter(e => e.rawDate && new Date(e.rawDate) >= todayStart && new Date(e.rawDate) < new Date(todayStart.getTime()+24*60*60*1000)).length;
+            const today = new Date(); 
+            const todayStart = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+            const todayEvents = allEvents.filter(e => {
+                if (!e.rawDate) return false;
+                try {
+                    const eventDate = new Date(e.rawDate);
+                    return !isNaN(eventDate.getTime()) && eventDate >= todayStart && eventDate < new Date(todayStart.getTime()+24*60*60*1000);
+                } catch (er) { return false; }
+            }).length;
             document.getElementById('totalShows').textContent = total;
-            document.getElementById('liveShows').textContent = live;
+            document.getElementById('liveShows').textContent = live; 
             document.getElementById('todayShows').textContent = todayEvents;
         }
-        function renderEvents() {
+
+        function renderEvents() { 
             const grid = document.getElementById('eventsGrid'); let filtered = [...allEvents];
             const today = new Date(); const todayDateStr = today.toDateString();
             const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+
             switch (currentFilter) {
                 case 'ticketmaster': filtered = allEvents.filter(e => e.source === 'ticketmaster'); break;
                 case 'eventbrite': filtered = allEvents.filter(e => e.source === 'eventbrite'); break;
-                case 'today': filtered = allEvents.filter(e => e.rawDate && new Date(e.rawDate).toDateString() === todayDateStr); break;
-                case 'week': filtered = allEvents.filter(e => e.rawDate && new Date(e.rawDate) >= today && new Date(e.rawDate) <= weekFromNow); break;
+                case 'local_listing': filtered = allEvents.filter(e => e.source === 'local_listing'); break;
+                case 'today': 
+                    filtered = allEvents.filter(e => {
+                        if (!e.rawDate) return false;
+                        try { return new Date(e.rawDate).toDateString() === todayDateStr; } catch(er){return false;}
+                    }); 
+                    break;
+                case 'week': 
+                    filtered = allEvents.filter(e => {
+                        if (!e.rawDate) return false;
+                        try { const eventD = new Date(e.rawDate); return !isNaN(eventD.getTime()) && eventD >= today && eventD <= weekFromNow; } catch(er){return false;}
+                    }); 
+                    break;
             }
             if (searchTerm) { const st = searchTerm.toLowerCase();
                 filtered = filtered.filter(e => e.title?.toLowerCase().includes(st) || e.theater?.toLowerCase().includes(st) || e.description?.toLowerCase().includes(st) || e.genre?.toLowerCase().includes(st)); }
+            
             if (filtered.length === 0) { grid.innerHTML = `<div class="loading" style="padding:2rem;font-size:0.9rem;color:var(--text-secondary);">No events match. Try refreshing or changing filters.</div>`; updateStats(); return; }
+            
             grid.innerHTML = filtered.map(event => `
-                <div class="event-card" onclick="window.open('${event.url}', '_blank')" title="Click for details on ${event.source}">
+                <div class="event-card" onclick="if('${event.url}' && '${event.url}' !== '#') window.open('${event.url}', '_blank');" title="Click for details on ${event.source || 'listing'}">
                     <div class="event-image ${!event.image ? 'placeholder' : ''}" ${event.image ? `style="background-image: url('${event.image}');"` : ''}>
                         ${!event.image ? (event.imageAlt || '🎭') : ''}
                         <div class="event-badges">
-                            <span class="badge ${event.source}">${event.source}</span>
+                            <span class="badge ${event.source || 'local_listing'}">${(event.source || 'local_listing').replace('_', ' ')}</span>
                             ${(event.saleStatus === 'onsale' || event.status === 'live') ? '<span class="badge live">LIVE</span>' : ''}
                             ${event.genre ? `<span class="badge">${event.genre}</span>` : ''}
                         </div>
                     </div>
                     <div class="event-content">
-                        <h3 class="event-title">${event.title}</h3>
-                        <p class="event-theater"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${event.theater}</p>
-                        <div class="event-details"><span class="event-date">${event.dates}</span><span class="event-price">${event.price}</span></div>
+                        <h3 class="event-title">${event.title || 'Untitled Event'}</h3>
+                        <p class="event-theater"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${event.theater || 'Venue TBD'}</p>
+                        <div class="event-details"><span class="event-date">${event.dates || 'Date TBD'}</span><span class="event-price">${event.price || 'Details Online'}</span></div>
                         <div class="event-actions">
-                            <button class="action-btn" onclick="event.stopPropagation(); shareEvent('${event.title}','${event.theater}','${event.url}')" title="Share Event"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
-                            <button class="action-btn" title="View Details"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Details</button>
+                            <button class="action-btn" onclick="event.stopPropagation(); shareEvent('${event.title || ''}','${event.theater || ''}','${event.url || ''}')" title="Share Event"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share</button>
+                            <button class="action-btn" title="View Details" ${(!event.url || event.url === '#') ? 'disabled style="opacity:0.5; cursor:default;"' : ''}><svg width="14" height="14" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Details</button>
                         </div>
                     </div>
                 </div>`).join('');
             updateStats();
         }
-        function shareEvent(title, theater, url) {
-            if (navigator.share) { navigator.share({ title: `${title} at ${theater}`, text: `Check out: ${title} at ${theater}`, url: url }).then(() => showToast('✨ Shared!')).catch(err=>showToast('Share failed.'));
-            } else { navigator.clipboard.writeText(`${title} at ${theater} - ${url}`).then(() => showToast('📋 Link copied!')); }
+
+        function shareEvent(title, theater, url) { 
+            const shareUrl = (url && url !== '#') ? url : window.location.href;
+            if (navigator.share) { navigator.share({ title: `${title} at ${theater}`, text: `Check out: ${title} at ${theater}`, url: shareUrl }).then(() => showToast('✨ Shared!')).catch(err=>showToast('Share failed.'));
+            } else { navigator.clipboard.writeText(`${title} at ${theater} - ${shareUrl}`).then(() => showToast('📋 Link copied!')); }
         }
-        function showToast(message) {
+        function showToast(message) { 
             const toast = document.getElementById('toast'); toast.textContent = message; toast.className = 'toast show';
             setTimeout(() => { toast.className = 'toast'; }, 3000);
         }
-        document.getElementById('searchBox').addEventListener('input', (e) => { searchTerm = e.target.value; renderEvents(); });
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active'); currentFilter = btn.dataset.filter; renderEvents();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('searchBox').addEventListener('input', (e) => { searchTerm = e.target.value; renderEvents(); });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active'); currentFilter = btn.dataset.filter; renderEvents();
+                });
             });
+
+            document.getElementById('refreshBtn').addEventListener('click', () => { showToast('🔄 Refreshing data...'); fetchAllLiveData(); });
+            
+            console.log('Neon Glam Initialized with CSV Data Fetching!'); 
+            fetchAllLiveData(); 
         });
-        document.getElementById('refreshBtn').addEventListener('click', () => { showToast('🔄 Refreshing data...'); fetchAllLiveData(); });
-        document.addEventListener('DOMContentLoaded', () => { console.log('Neon Glam Initialized!'); fetchAllLiveData(); });
+        
         setInterval(() => { showToast('🔄 Auto-refreshing data...'); fetchAllLiveData(); }, 300000);
     </script>
 </body>
