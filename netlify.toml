@@ -1,0 +1,15 @@
+// =====================================================
+// FILE 2: netlify.toml (OPTIONAL but recommended)
+// This goes in the root folder (same as index.html)
+// =====================================================
+
+[build]
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
